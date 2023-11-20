@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MovieSense_API;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add authentication service
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -18,6 +20,10 @@ builder.Services.AddAuthentication(options =>
     options.Authority = "https://dev-cehqbpu6ie2hxgxj.us.auth0.com/";
     options.Audience = "movie-sense";
 });
+
+// Add database service
+builder.Services.AddDbContext<DbManager>();
+
 
 var app = builder.Build();
 
